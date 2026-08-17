@@ -24,4 +24,4 @@ Requires: Windows, Python 3.9+
 Limitations
 Uses OS-summary data (netsh), not raw packet capture — deauth detection and handshake analysis would require monitor mode, which isn't reliably supported on Windows WiFi drivers. A natural next step would be a Linux-based module for that.
 Author
-Krishna J — S7 EEE B
+Krishna J 
