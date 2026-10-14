@@ -16,7 +16,6 @@ def run_netsh_scan():
     )
     return result.stdout
 
-
 def parse_networks(raw_output):
     """
     Parses netsh output into a list of dicts, one per SSID block.
@@ -78,7 +77,6 @@ def parse_networks(raw_output):
 
     return networks
 
-
 def score_network(network):
     """
     Assigns a risk level and reason based on auth/encryption type.
@@ -97,8 +95,8 @@ def score_network(network):
         return "LOW", "WPA3 — current best-practice encryption"
     if "WPA" in auth:
         return "MEDIUM", "WPA (older) — consider upgrading to WPA2/WPA3"
-    return "UNKNOWN", "Could not determine security type"
 
+    return "UNKNOWN", "Could not determine security type"
 
 def main():
     print("Scanning nearby WiFi networks...\n")
@@ -117,7 +115,6 @@ def main():
         print(f"{net['ssid']:25} {net['auth'] or '-':18} {risk:8} {reason}")
 
     print(f"\nTotal networks found: {len(networks)}")
-
 
 if __name__ == "__main__":
     main()

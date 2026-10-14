@@ -1,11 +1,10 @@
 """
 Wireless Security Network Analyzer - Local Network Info
-Parses `ipconfig /all` to show this device's own network configuration.
+Parses ipconfig /all to show this device's own network configuration.
 """
 
 import subprocess
 import re
-
 
 def get_network_info():
     """

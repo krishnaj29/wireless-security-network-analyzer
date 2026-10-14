@@ -8,7 +8,6 @@ from datetime import datetime
 
 DB_FILE = "scan_history.db"
 
-
 def init_db():
     """Creates the database and tables if they don't already exist."""
     conn = sqlite3.connect(DB_FILE)
@@ -26,12 +25,11 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 def record_scan(networks):
     """
-    Takes the parsed networks list (from scanner.parse_networks) and
-    updates the database: new BSSIDs get inserted, known ones get last_seen updated.
-    Returns a list of BSSIDs that are new in this scan (first time ever seen).
+    Takes the parsed networks list and updates the database:
+    new BSSIDs get inserted, known ones get last_seen updated.
+    Returns a list of BSSIDs that are new in this scan.
     """
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
@@ -61,7 +59,6 @@ def record_scan(networks):
     conn.close()
     return new_bssids
 
-
 def get_first_seen(bssid):
     """Returns the first_seen timestamp for a given BSSID, or None."""
     conn = sqlite3.connect(DB_FILE)
@@ -70,7 +67,6 @@ def get_first_seen(bssid):
     row = cur.fetchone()
     conn.close()
     return row[0] if row else None
-
 
 def detect_duplicate_ssids(networks):
     """

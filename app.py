@@ -39,7 +39,7 @@ PAGE_TEMPLATE = """
     <p class="subtitle">Auto-refreshes every 15 seconds &middot; {{ count }} networks found</p>
 
     <div class="info-box">
-        <h3>📡 Your Network</h3>
+        <h3>Your Network</h3>
         <p>
             IP Address: {{ my_network.ip_address or 'Not connected' }} &nbsp;|&nbsp;
             Subnet Mask: {{ my_network.subnet_mask or '-' }} &nbsp;|&nbsp;
@@ -50,7 +50,7 @@ PAGE_TEMPLATE = """
 
     {% if suspicious %}
     <div class="warning-box">
-        <h3>⚠ Possible Rogue AP / Evil Twin Detected</h3>
+        <h3>Possible Rogue AP / Evil Twin Detected</h3>
         {% for ssid, bssids in suspicious.items() %}
             <p><strong>{{ ssid }}</strong> is broadcasting from multiple BSSIDs with different security settings: {{ bssids | join(', ') }}</p>
         {% endfor %}
@@ -88,7 +88,6 @@ def dashboard():
     raw = run_netsh_scan()
     networks = parse_networks(raw)
     my_network = get_network_info()
-
     new_bssids = record_scan(networks)
     suspicious = detect_duplicate_ssids(networks)
 
@@ -97,10 +96,8 @@ def dashboard():
         risk, reason = score_network(net)
         signals = [b["signal"] for b in net["bssids"] if b["signal"] is not None]
         best_signal = max(signals) if signals else 0
-
         net_bssids = [b["bssid"] for b in net["bssids"]]
         is_new = any(b in new_bssids for b in net_bssids)
-
         first_seen_dates = [get_first_seen(b) for b in net_bssids if get_first_seen(b)]
         first_seen = min(first_seen_dates) if first_seen_dates else None
 
@@ -125,7 +122,6 @@ def dashboard():
         suspicious=suspicious,
         my_network=my_network
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
